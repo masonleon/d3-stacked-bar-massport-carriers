@@ -2,7 +2,7 @@
 
 This repository is your starting point for the assignment and includes the instructions below.
 
-Link to your GitHub pages website: `[insert your *clickable* hyperlink here]`
+Link to your GitHub pages website: https://neu-cs-7250-s21.github.io/assignment--d3_basic_charts-masonleon
 
 # Aim of the assignment
 
