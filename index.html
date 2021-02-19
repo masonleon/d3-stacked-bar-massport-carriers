@@ -32,54 +32,86 @@
   <div class='content-column'>
     <h1>Assignment: Basic charts in D3</h1>
 
+    <h3>MassPort Container Carriers by Alliance FY 2014 - FY 2020</h3>
     <p>
-      Visualization 1 represents the container line carrier representation and alliance composition by quarter at the Massachussetts Port Authority.
-      The source of the data is the massport annual reports.
-
-      Table	Range	Report Year	PDF Page	Link
-S-16 Port of Boston Principal Customers Fiscal Year 2020	June 30, 2019 - June 30, 2020	FY 2020	162	http://www.massport.com/media/iwvjsnjz/fy2020_cafr.pdf
-S-16 Port of Boston Principal Customers Fiscal Year 2019	June 30, 2018 - June 30, 2019	FY 2019	159	http://www.massport.com/media/3425/mpa-fy19-cafr-final.pdf
-S-16 Port of Boston Principal Customers Fiscal Year 2018	June 30, 2017 - June 30, 2018	FY 2018	159	http://www.massport.com/media/3029/mpa-fy18-cafr-final.pdf
-S-16 Port of Boston Principal Customers Fiscal Year 2017	June 30, 2016 - June 30, 2017	FY 2017	147	http://www.massport.com/media/2641/mpa-fy17-cafr-final.pdf
-S-16 Port of Boston Principal Customers Fiscal Year 2016	June 30, 2015 - June 30, 2016	FY 2016	141	http://www.massport.com/media/1354/mpa-fy16-cafr-final.pdf
-S-14 Port of Boston Principal Customers Fiscal Year 2015	June 30, 2014 - June 30, 2015	FY 2015	125	http://www.massport.com/media/1353/mpa-fy15-cafr-final.pdf
-S-14 Port of Boston Principal Customers Fiscal Year 2014	June 30, 2013 - June 30, 2014	FY 2014	119	https://www.massport.com/media/1352/fy2014_cafr.pdf
-				
-				
-				
-				
-				https://www.massport.com/conley-terminal/shipping-directory/ocean-carrier-directory/
-Alliance evolution 1996 to 2017			9	https://www.intermodalexpo.com/sites/default/files/documents/2018-10/IU_OceanAlliances-AnIntroduction_EXPO2018.pdf
-				https://porteconomicsmanagement.org/pemp/contents/part1/ports-and-container-shipping/alliances-container-shipping/
-				
-        
+      As container carriers have consolidated services through mergers, acquisitions, and alliance restructuring, the number of carrier customers hailing the Massachusets Port Authority have waxed and waned 
+      over the past few years. The connectivity of a port often is derived from the port's distinct carriers and alliance groupings. Although alliances largely offer cost-savings for the carrier, they can provide
+      some benefits to the the shipper. However, with fewer unique carriers and services limited to a select group of alliance pairings, customer choice is limited. This type of information is important to monitor 
+      for economic development purposes such as marketing the services available to the region for prospective shippers or for supply chain managers seeking potential alternative routings from the congested NY/NJ
+      gateway.
+      
+      The datasets used in the visualization below was derived from <a href='http://www.massport.com/massport/finance/financial-publications/comprehensive-annual-financial-report-cafr/'>MassPort Annual Financial Reports</a>
+      and combined with other information relating to milestones in major global container carrier alliance formation. The data was shaped into a "wide" format to allow for use of a stacked bar chart. This dataset consists of continuous quarterly information, categorical information representing the alliance, and numerical quanitiative data for the carrier counts per alliance. 
+      I utilized this chart type because it provides a clear view of the total number of unique carriers while also demonstrating the sizes and names of the alliance sub groupings with a color channel and interaction event. The user may
+      inspect a sub element of each quarter to examine the number of carriers participating in that alliance. 
     </p>
-
-    <h2>Simple formatting instructions</h2>
-
-
-    <p>
-      Your first visualization goes here:
-    </p>
-
     <!-- Visualization goes here -->
     <div class='vis-holder' id='vis1'></div>
 
+    <h3>2020 Global Container Carrier Schedule Reliability</h3>
 	  <p>
-      Your second visualization goes here:
-    </p>
+      The global maritime supply chain and stakeholders like beficial cargo owners, marine terminal operators, 3PL's, drayage and moter carriers, railroads, and intermodal equipment providers all require 
+      reliable service from their ocean container partners. Reliable service entails regularly scheduled arrival, departure, berthing, loading, and unloading of the vessels deployed in a service by an individual 
+      ocean carrier and alliance partners. A variety of factors and disruptions can decrease this performance metric. During the past year, according to Sea-Intelligence data collected since 2011, global carrier 
+      reliability across 34 trade lanes, 60+ carriers, and the alliances, has hit a record new low of 44.6%. This is significant in that global schedule reliability has hit double digit year over year declines for 
+      the fith consecutive month. 
 
+      The dataset used in the visualization below may be found <a href='https://sea-intelligence.com/images/press_docs/20210129_-_Sea-Intelligence_GLP_Press_Release_Charts_-_January_2021.xlsx'>here</a>. The data 
+      was reshaped into a csv. The data was plotted using a line because the this medium is an effective way to represent quantative values representing the decimal ratio from 0 to 1 for overall carrier performance one a 
+      continuous montly frequency. 
+    </p>
     <!-- Visualization goes here -->
     <div class='vis-holder' id='vis2'></div>
 
+    <h2>Data Sources</h2>
+    <ul>
+      <li><a href='http://www.massport.com/media/iwvjsnjz/fy2020_cafr.pdf'>
+        Massachusetts Port Authority, Comprehensive Annual Financial Report, FY 2020, June 30, 2019 - June 30, 2020</a>
+        Table S-16 Port of Boston Principal Customers Fiscal Year 2020, page 162
+      </li>
+      <li><a href='http://www.massport.com/media/3425/mpa-fy19-cafr-final.pdf'>
+        Massachusetts Port Authority, Comprehensive Annual Financial Report, FY 2019, June 30, 2018 - June 30, 2019</a>
+        Table S-16 Port of Boston Principal Customers Fiscal Year 2019, page 159
+      </li>
+      <li><a href='http://www.massport.com/media/3029/mpa-fy18-cafr-final.pdf'>
+        Massachusetts Port Authority, Comprehensive Annual Financial Report, FY 2018, June 30, 2017 - June 30, 2018</a>
+        Table S-16 Port of Boston Principal Customers Fiscal Year 2018, page 159
+      </li>
+      <li><a href='http://www.massport.com/media/2641/mpa-fy17-cafr-final.pdf'>
+        Massachusetts Port Authority, Comprehensive Annual Financial Report, FY 2017, June 30, 2016 - June 30, 2017</a>
+        Table S-16 Port of Boston Principal Customers Fiscal Year 2017, page 147
+      </li>
+      <li><a href='http://www.massport.com/media/1354/mpa-fy16-cafr-final.pdf'>
+        Massachusetts Port Authority, Comprehensive Annual Financial Report, FY 2016, June 30, 2015 - June 30, 2016</a>
+        Table S-16 Port of Boston Principal Customers Fiscal Year 2016, page 141
+      </li>
+      <li><a href='http://www.massport.com/media/1353/mpa-fy15-cafr-final.pdf'>
+        Massachusetts Port Authority, Comprehensive Annual Financial Report, FY 2015, June 30, 2014 - June 30, 2015</a>
+        Table S-14 Port of Boston Principal Customers Fiscal Year 2015, page 125
+      </li>
+      <li><a href='https://www.massport.com/media/1352/fy2014_cafr.pdf'>
+        Massachusetts Port Authority, Comprehensive Annual Financial Report, FY 2014, June 30, 2013 - June 30, 2014</a>
+        Table S-14 Port of Boston Principal Customers Fiscal Year 2014, page 119
+      </li>
+      <li><a href='https://www.massport.com/conley-terminal/shipping-directory/ocean-carrier-directory/'>
+        Massachusetts Port Authority, Port of Boston Shipping Directory</a>
+        Ocean Carriers
+      </li>
+      <li><a href='https://porteconomicsmanagement.org/pemp/contents/part1/ports-and-container-shipping/alliances-container-shipping/'>
+        Alliances in Container Shipping</a>
+        Theo Notteboom, Athanasios Pallis and Jean-Paul Rodrigue (2021) Port Economics, Management and Policy
+      </li>
+      <li><a href='https://www.intermodalexpo.com/sites/default/files/documents/2018-10/IU_OceanAlliances-AnIntroduction_EXPO2018.pdf'>
+        Alliance Evolution, 1996 - 2017</a>
+        Intermodal Association of North America, IANA Intermodal Expo 2018 Intermodal University, Ocean Alliances - An Introduction, slide 9
+      </li>
+      <li><a href='https://sea-intelligence.com/press-room/45-december-schedule-reliability-hits-new-all-time-low'>
+        Sea-Intelligence, December 2020 Global Liner Performance Press Release</a>
+        Record-low Global Schedule Reliability of 44.6% in December 2020
+      </li>
+    </ul>
+
     <h2>Acknowledgments</h2>
-
-    <p>
-      <em>List here where any code, packages/libraries, text, images, designs, etc. that you leverage come from.</em>
-
-      https://sea-intelligence.com/press-room/45-december-schedule-reliability-hits-new-all-time-low
-    </p>
-
     <ul>
       <li><a href='https://d3js.org/'>
         D3: Data-Driven Documents</a>
