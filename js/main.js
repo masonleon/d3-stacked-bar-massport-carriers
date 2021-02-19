@@ -1,7 +1,7 @@
 // write your javascript code here.
 // feel free to change the preset attributes as you see fit
 
-const massportCarrierAllianceCsv = 'data/MASSPORT_SSL_Alliance_By_Quarter.csv';
+const massportCarrierAllianceCsv = './data/MASSPORT_SSL_Alliance_By_Quarter.csv';
 
 // d3.csv(massportCarrierAllianceCsv, function(d) {
 
