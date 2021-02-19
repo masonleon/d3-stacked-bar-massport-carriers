@@ -2,7 +2,7 @@
 
 This repository is your starting point for the assignment and includes the instructions below.
 
-Link to your GitHub pages website: https://neu-cs-7250-s21.github.io/assignment--d3_basic_charts-masonleon
+Link to your GitHub pages website: https://neu-cs-7250-s21.github.io/assignment--d3_basic_charts-masonleon/
 
 # Aim of the assignment
 
@@ -25,11 +25,11 @@ Please look through **all** the materials below so you understand the setup inst
 
 1. Wait for the output: `Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/)`.
 
-1. Now open your web browser (Firefox or Chrome) and navigate to the URL: http://localhost:8000
+1. Now open your web browser (Firefox or Chrome) and navigate to the URL: http://localhost:8000/
 
 ## Update hyperlinks
 
-1. Edit near the top of this `README.md` file to include a clickable hyperlink to the GitHub pages website for your repo., replacing the `` `[insert your *clickable* hyperlink here]` `` code with your markdown. (Detailed instructions for GitHub pages [here](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Using_Github_pages).)
+1. Edit near the top of this `README.md` file to include a clickable hyperlink to the GitHub pages website for your repo., replacing the `` `[insert your *clickable* hyperlink here]` `` code with your markdown. (Detailed instructions for GitHub pages [here](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Using_Github_pages/).)
 
 1. In `index.html` update the GitHub repo URL with the URL of your repository. It is in the span with `id='forkongithub'`.
 
@@ -101,7 +101,7 @@ Failure to properly cite and attribute code is a breach of academic honesty.
 Also, per our syllabus, homework is an individual assessment and should be completed by you alone.
 Simply copying existing examples without performing thoughtful edits is a breach of academic honesty.
 You are welcome to ask fellow classmates and students for help and discuss the assignment, but **the submission should be your own work**.
-***See [the syllabus](https://northeastern.instructure.com/courses/63405#Academic_Integrity_Policy) for much more detail on our academic integrity policy and expectations.***
+***See [the syllabus] for much more detail on our academic integrity policy and expectations.***
 
 # Submission instructions
 
