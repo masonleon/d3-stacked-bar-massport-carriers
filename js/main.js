@@ -3,21 +3,12 @@
 
 const massportCarrierAllianceCsv = './data/MASSPORT_SSL_Alliance_By_Quarter.csv';
 
-// d3.csv(massportCarrierAllianceCsv, function(d) {
-
-//   return {
-//     Carrier: d.Carrier,
-//     Alliance: d.Alliance,
-//     Quarter: d.Year + '-' + d.Quarter
-//   };
-// }).then(barChart);
+const seaIntelligenceCarrierScheduleReliabilityCsv = './data/20210129_-_Sea-Intelligence_GLP_Press_Release_Charts_-_January_2021_global_scheduled_reliability2.csv';
 
 d3.csv(massportCarrierAllianceCsv, d3.autoType())
   .then(barChart);
 
 function barChart(data){
-
-  console.log(data);
 
   //https://observablehq.com/@d3/stacked-bar-chart
   let series = d3.stack()
@@ -25,19 +16,8 @@ function barChart(data){
     (data)
     .map(d => (d.forEach(v => v.key = d.key), d))
 
-  console.log(series)
-
   // https://observablehq.com/@d3/d3-scaleordinal
   let color = d3.scaleOrdinal(d3.schemeCategory10)
-
-  // let xScale = d3.scaleTime()
-  //     .domain([minDate, maxDate])
-  //     .range([0, width]);
-
-  // let yScale = d3.scaleLinear()
-  //     .domain([0, maxCarriers])
-  //     .range([height, 0]);
-
 
   let x = d3.scaleBand()
     .domain(data.map(d => d.quarter))
@@ -61,8 +41,6 @@ function barChart(data){
     .call(xAxis)
     .selectAll("text")  
     .style("text-anchor", "end")
-    // .attr("dx", "-.8em")
-    // .attr("dy", ".15em")
     .attr("transform", "rotate(-65)");
 
   // https://www.d3-graph-gallery.com/graph/custom_axis.html
@@ -80,9 +58,7 @@ function barChart(data){
   // let yAxis = d3.axisLeft(yScale);
   let yAxis = g => g
     .attr("transform", `translate(${margin.left},0)`)
-    // .call(d3.axisLeft(y).ticks(null, "s"))
     .call(d3.axisLeft(y).tickSizeOuter(0))
-    // .call(g => g.selectAll(".domain").remove())
 
   svg1.append('g')
       .attr('class', 'y axis')
@@ -100,24 +76,6 @@ function barChart(data){
     .attr('x', -(margin.top + (height - margin.top - margin.bottom)))
     .attr('y', 20) // Relative to the y axis.
     .text("Number of Individual Carriers");
-
-  //Draw bars
-  // let bar = svg1
-  //   .selectAll('rect')
-  //   .data(data)
-  //   .enter()
-  //   .append('rect')
-  //     .attr('x', function(d) {
-  //       return xScale(d.Quarter);
-  //     })
-  //     .attr('y', function(d) {
-  //       return yScale(d.Carrier);
-  //     })
-  //     // .attr('width', xScale.bandwidth())
-  //     .attr('fill', 'steelblue')
-  //     .attr('height', function(d) {
-  //       return height - margin.bottom - yScale(d.Carrier);
-  //     });
   
   // https://observablehq.com/@d3/stacked-bar-chart
   svg1.append("g")
@@ -132,11 +90,6 @@ function barChart(data){
     .attr("y", d => y(d[1]))
     .attr("height", d => y(d[0]) - y(d[1]))
     .attr("width", x.bandwidth())
-    
-  // svg1.append('path')
-  //     .attr('d', bar(data))
-  //     .attr('class', 'dataLine');
-  // svg1.append(bar)
 
   // https://observablehq.com/@d3/grouped-bar-chart
   // legend
@@ -166,6 +119,77 @@ function barChart(data){
 
   svg1.append("g")
     .call(legend);
+}
+
+
+let parseDate = d3.timeParse('%m/%d/%Y');
+
+d3.csv(seaIntelligenceCarrierScheduleReliabilityCsv, function(d) {
+  return {
+    date: parseDate(d.Month),
+    reliability: +d.Reliability
+  };
+}).then(lineChart);
+
+
+function lineChart(data){
+  console.log(data);
+
+  let maxDate  = d3.max(data, function(d){return d.date; });
+  let minDate  = d3.min(data, function(d){return d.date; });
+  let maxReliability = d3.max(data, function(d){return d.reliability;});
+  
+  console.log(maxDate, minDate, maxReliability);
+
+  let xScale = d3.scaleTime()
+      .domain([minDate, maxDate])
+      .range([0, width - margin.left - margin.right]);
+
+  let yScale = d3.scaleLinear()
+      .domain([0, maxReliability])
+      .range([height - margin.bottom - margin.top, 0]);
+
+  let xAxis = d3.axisBottom(xScale);
+  svg2.append('g')
+      .attr('class', 'x axis')
+      .attr("transform", `translate(${margin.right + margin.left},${height - margin.bottom})`)      
+      .call(xAxis);
+
+  svg2.append("g")
+    .selectAll("text")  
+    .style("text-anchor", "end")
+    .attr("transform", "rotate(-65)");
+
+  // https://www.d3-graph-gallery.com/graph/custom_axis.html
+  // X axis label
+  svg2.append("text")
+    .attr('class', 'axis-label')
+    .attr("x", margin.left + (width - margin.left - margin.right) / 2)
+    .attr("y", height + 50)
+    .text("Month");
+
+  let yAxis = d3.axisLeft(yScale);
+  svg2.append('g')
+      .attr('class', 'y axis')
+      .attr("transform", `translate(${margin.right + margin.left},${margin.top})`)      
+      .call(yAxis);
+
+    // Y axis label
+    svg2.append("text")
+      .attr('class', 'axis-label')
+      .attr('transform', 'rotate(-90)')
+      .attr('x', -(margin.top + (height - margin.top - margin.bottom)))
+      .attr('y', 20) // Relative to the y axis.
+      .text("2020 Global Carrier Schedule Reliability");
+      
+  let line = d3.line()
+      .x(function(d){return xScale(d.date);})    
+      .y(function(d){return yScale(d.reliability);})
+
+  svg2.append('path')
+      .attr('d', line(data))
+      .attr("fill", "none")
+      .attr("stroke", "steelblue")
 }
 
 let margin = {
