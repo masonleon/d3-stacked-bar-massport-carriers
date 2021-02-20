@@ -10,115 +10,117 @@ d3.csv(massportCarrierAllianceCsv, d3.autoType())
 
 function barChart(data){
 
+  console.log('csv-data_massport_carriers: ', data)
+
   //https://observablehq.com/@d3/stacked-bar-chart
+  // convert the data to series of carriers
   let series = d3.stack()
+    // ignore column[0] as value is "quarter", column[1:n] values are alliance names
     .keys(data.columns.slice(1))
     (data)
-    .map(d => (d.forEach(v => v.key = d.key), d))
+    // .map(d => (d.forEach(v => v.key = d.key), d))
+
+
+  console.log('series_massport_carriers: ', series)
 
   // https://observablehq.com/@d3/d3-scaleordinal
   let color = d3.scaleOrdinal(d3.schemeCategory10)
 
   let x = d3.scaleBand()
     .domain(data.map(d => d.quarter))
-    .range([margin.left, width - margin.right])
-    .padding(0.3)
+    .range([0, width])
+    .padding([0.3])
 
-  // let xAxis = d3.axisBottom(xScale);
-  let xAxis = g => g
-    .attr("transform", `translate(0,${height - margin.bottom})`)
-    .call(d3.axisBottom(x).tickSizeOuter(0))
-    // .call(g => g.selectAll(".domain").remove())
-
-  svg1.append('g')
-      .attr('class', 'x axis')
-      // .attr('transform', 'translate(0, ' + (height - margin.bottom - margin.top) + ')')
-      .call(xAxis);
-
-  // https://stackoverflow.com/questions/20947488/d3-grouped-bar-chart-how-to-rotate-the-text-of-x-axis-ticks
-  // X axis ticks
   svg1.append("g")
-    .call(xAxis)
-    .selectAll("text")  
-    .style("text-anchor", "end")
-    .attr("transform", "rotate(-65)");
+    .attr("transform", `translate(${margin.left},${height + margin.bottom})`)
+    .call(d3.axisBottom(x).tickSizeOuter(0))
+    // format x ticks
+    // https://stackoverflow.com/questions/20947488/d3-grouped-bar-chart-how-to-rotate-the-text-of-x-axis-ticks
+    .selectAll("text")
+    .attr("transform", "translate(-10,0)rotate(-45)")
+    // .attr("transform", "rotate(-65)")
+    .style("text-anchor", "end");
 
   // https://www.d3-graph-gallery.com/graph/custom_axis.html
   // X axis label
   svg1.append("text")
     .attr('class', 'axis-label')
-    .attr("x", margin.left + (width - margin.left - margin.right) / 2)
-    .attr("y", height + 50)
+    .attr("transform", `translate(${width/2},${height + margin.top + margin.bottom - 5})`)
     .text("Quarter");
 
   let y = d3.scaleLinear()
-  .domain([0, d3.max(series, d => d3.max(d, d => d[1]))])
-  .rangeRound([height - margin.bottom, margin.top])
+    .domain([0, 
+      // Math.ceil(
+        
+        d3.max(series, d => d3.max(d, d => d[1])) 
+      //   / 5) * 5
+      ])
+    .range([height , 0])
 
-  // let yAxis = d3.axisLeft(yScale);
-  let yAxis = g => g
-    .attr("transform", `translate(${margin.left},0)`)
-    .call(d3.axisLeft(y).tickSizeOuter(0))
-
-  svg1.append('g')
-      .attr('class', 'y axis')
-      .attr('transform', 'translate(0, 0)')
-      .call(yAxis);
-
-  // Y axis ticks
   svg1.append("g")
-    .call(yAxis);
+    .attr("transform", `translate(${margin.left},${margin.bottom})`)
+    .call(d3.axisLeft(y));
 
   // Y axis label
   svg1.append("text")
     .attr('class', 'axis-label')
     .attr('transform', 'rotate(-90)')
     .attr('x', -(margin.top + (height - margin.top - margin.bottom)))
-    .attr('y', 20) // Relative to the y axis.
+    .attr("y", margin.left/2)
     .text("Number of Individual Carriers");
   
   // https://observablehq.com/@d3/stacked-bar-chart
   svg1.append("g")
-  .selectAll("g")
-  .data(series)
-  .join("g")
-    .attr("fill", d => color(d.key))
-  .selectAll("rect")
-  .data(d => d)
-  .join("rect")
-    .attr("x", (d, i) => x(d.data.quarter))
-    .attr("y", d => y(d[1]))
-    .attr("height", d => y(d[0]) - y(d[1]))
-    .attr("width", x.bandwidth())
+    .selectAll("g")
+    .data(series)
+    .join("g")
+      .attr("fill", d => color(d.key))
+    .selectAll("rect")
+    .data(d => d)
+    .join("rect")
+      .attr("x", d => x(d.data.quarter) + margin.left)
+      .attr("y", d => y(d[1]) + margin.bottom)
+      .attr("height", d => y(d[0]) - y(d[1]) ) 
+      .attr("width", x.bandwidth())
 
   // https://observablehq.com/@d3/grouped-bar-chart
   // legend
   let legend = svg => {
     const g = svg
-        .attr("transform", `translate(${width},0)`)
+        .attr("transform", `translate(${width},${margin.bottom})`)
         .attr("text-anchor", "end")
         .attr("font-family", "sans-serif")
         .attr("font-size", 10)
       .selectAll("g")
       .data(color.domain().slice().reverse())
+      // .data(color.domain().sort((a, b) => b.length - a.length))
       .join("g")
-        .attr("transform", (d, i) => `translate(0,${i * 20})`);
+        .attr("transform", (d, i) => `translate(${margin.top},${i * 10})`);
 
     g.append("rect")
-        .attr("x", -19)
-        .attr("width", 19)
-        .attr("height", 19)
+        .attr("x", -9)
+        .attr("width", 9)
+        .attr("height", 10)
         .attr("fill", color);
 
     g.append("text")
-        .attr("x", -24)
-        .attr("y", 9.5)
-        .attr("dy", "0.35em")
+        .attr("x", -10)
+        .attr("y", 8)
+        // .attr("dy", "0.35em")
         .text(d => d);
   }
 
   svg1.append("g")
     .call(legend);
+
+  // Chart title
+  // https://observablehq.com/@uwdata/introduction-to-d3
+  svg1
+    .append("text")
+      .attr("transform", `translate(${(width + margin.left + margin.right)/2},20)`)
+      .attr("text-anchor", "middle")
+      .style("font-weight", 600)
+      .html("MassPort Container Carriers by Alliance FY2014 - Present")
 }
 
 
