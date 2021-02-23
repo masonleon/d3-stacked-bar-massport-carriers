@@ -20,7 +20,6 @@ function barChart(data){
     (data)
     // .map(d => (d.forEach(v => v.key = d.key), d))
 
-
   console.log('series_massport_carriers: ', series)
 
   // https://observablehq.com/@d3/d3-scaleordinal
@@ -69,6 +68,45 @@ function barChart(data){
     .attr("y", margin.left/2)
     .text("Number of Individual Carriers");
   
+
+        // ----------------
+  // Create a tooltip
+  //https://www.d3-graph-gallery.com/graph/barplot_stacked_basicWide.html
+  //https://www.d3-graph-gallery.com/graph/barplot_stacked_hover.html
+  // ----------------
+  const tooltip = d3.select("#viz1")
+    .append("div")
+    .style("opacity", 0)
+    .attr("class", "tooltip")
+    .style("background-color", "white")
+    .style("border", "solid")
+    .style("border-width", "1px")
+    .style("border-radius", "5px")
+    .style("padding", "10px")
+
+  // Three function that change the tooltip when user hover / move / leave a cell
+  const mouseover = function(d) {
+    // console.log(tooltip.text(d))
+    
+    return tooltip.style("visibility", "visible");
+
+    let subgroupName = d3.select(this.parentNode).datum().key;
+    let subgroupValue = d.data[subgroupName];
+    tooltip
+        .html("subgroup: " + subgroupName + "<br>" + "Value: " + subgroupValue)
+        .style("opacity", 1)
+  }
+  // const mousemove = function(d) {
+  //   tooltip
+  //     .style("left", (d3.pointer(this)[0]+90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
+  //     .style("top", (d3.pointer(this)[1]) + "px")
+  // }
+  // const mouseleave = function(d) {
+  //   tooltip
+  //     .style("opacity", 0)
+  // }
+
+  // Bars
   // https://observablehq.com/@d3/stacked-bar-chart
   svg1.append("g")
     .selectAll("g")
@@ -82,6 +120,24 @@ function barChart(data){
       .attr("y", d => y(d[1]) + margin.bottom)
       .attr("height", d => y(d[0]) - y(d[1]) ) 
       .attr("width", x.bandwidth())
+    // .on("mouseover", d => { 
+    //     console.log(d.target);
+    //     // console.log(d.target.__data__); 
+    //     let count = d.target.__data__[1] - d.target.__data__[0]
+    //     console.log(count)
+    //     mouseover(count)})
+    .on("mouseover", d => { 
+      console.log(d.target);
+      // console.log(d.target.__data__); 
+      let count = d.target.__data__[1] - d.target.__data__[0]
+      console.log(count)
+      // mouseover(count)
+      mouseover(d);
+    })
+    // .on("mousemove", mousemove(d))
+    // .on("mouseleave", mouseleave)
+
+  
 
   // https://observablehq.com/@d3/grouped-bar-chart
   // legend
@@ -190,6 +246,7 @@ function lineChart(data){
 
   svg2.append('path')
       .attr('d', line(data))
+      .attr("transform", `translate(${margin.right + margin.left},${margin.top})`)      
       .attr("fill", "none")
       .attr("stroke", "steelblue")
 }
