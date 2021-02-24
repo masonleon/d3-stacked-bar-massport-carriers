@@ -1,6 +1,5 @@
 // write your javascript code here.
 // feel free to change the preset attributes as you see fit
-
 const massportCarrierAllianceCsv = './data/MASSPORT_SSL_Alliance_By_Quarter.csv';
 
 const seaIntelligenceCarrierScheduleReliabilityCsv = './data/20210129_-_Sea-Intelligence_GLP_Press_Release_Charts_-_January_2021_global_scheduled_reliability2.csv';
@@ -37,11 +36,10 @@ function barChart(data){
     // https://stackoverflow.com/questions/20947488/d3-grouped-bar-chart-how-to-rotate-the-text-of-x-axis-ticks
     .selectAll("text")
     .attr("transform", "translate(-10,0)rotate(-45)")
-    // .attr("transform", "rotate(-65)")
     .style("text-anchor", "end");
 
-  // https://www.d3-graph-gallery.com/graph/custom_axis.html
   // X axis label
+  // https://www.d3-graph-gallery.com/graph/custom_axis.html
   svg1.append("text")
     .attr('class', 'axis-label')
     .attr("transform", `translate(${width/2},${height + margin.top + margin.bottom - 5})`)
@@ -49,10 +47,9 @@ function barChart(data){
 
   let y = d3.scaleLinear()
     .domain([0, 
-      // Math.ceil(
-        
+      Math.ceil(
         d3.max(series, d => d3.max(d, d => d[1])) 
-      //   / 5) * 5
+        / 5) * 5
       ])
     .range([height , 0])
 
@@ -68,39 +65,31 @@ function barChart(data){
     .attr("y", margin.left/2)
     .text("Number of Individual Carriers");
   
-
-        // ----------------
-  // Create a tooltip
+  // Tooltip
   //https://www.d3-graph-gallery.com/graph/barplot_stacked_basicWide.html
   //https://www.d3-graph-gallery.com/graph/barplot_stacked_hover.html
-  // ----------------
-  const tooltip = d3.select("#viz1")
-    .append("div")
-    .style("opacity", 0)
+  let tooltip = svg1.append('g')
+    // .append("div")
+    .style("opacity", 1)
     .attr("class", "tooltip")
-    .style("background-color", "white")
-    .style("border", "solid")
-    .style("border-width", "1px")
-    .style("border-radius", "5px")
-    .style("padding", "10px")
+    .attr("transform", `translate(${margin.left},${margin.bottom + margin.top})`)
+    .append("text")
 
   // Three function that change the tooltip when user hover / move / leave a cell
   const mouseover = function(d) {
-    // console.log(tooltip.text(d))
+    let alliance = d.key;
+    let quarter = d.datum.data.quarter;
+    let val = d.datum[1] - d.datum[0];
     
-    return tooltip.style("visibility", "visible");
-
-    let subgroupName = d3.select(this.parentNode).datum().key;
-    let subgroupValue = d.data[subgroupName];
-    tooltip
-        .html("subgroup: " + subgroupName + "<br>" + "Value: " + subgroupValue)
-        .style("opacity", 1)
+    tooltip.html('' + quarter + '<br>' + alliance + ':' + val+ '')
   }
+
   // const mousemove = function(d) {
   //   tooltip
   //     .style("left", (d3.pointer(this)[0]+90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
   //     .style("top", (d3.pointer(this)[1]) + "px")
   // }
+
   // const mouseleave = function(d) {
   //   tooltip
   //     .style("opacity", 0)
@@ -120,28 +109,18 @@ function barChart(data){
       .attr("y", d => y(d[1]) + margin.bottom)
       .attr("height", d => y(d[0]) - y(d[1]) ) 
       .attr("width", x.bandwidth())
-    // .on("mouseover", d => { 
-    //     console.log(d.target);
-    //     // console.log(d.target.__data__); 
-    //     let count = d.target.__data__[1] - d.target.__data__[0]
-    //     console.log(count)
-    //     mouseover(count)})
-    .on("mouseover", d => { 
-      console.log(d.target);
-      // console.log(d.target.__data__); 
-      let count = d.target.__data__[1] - d.target.__data__[0]
-      console.log(count)
-      // mouseover(count)
-      mouseover(d);
+    .on("mouseover", function(d){
+      let datum = d3.select(this).datum();
+      let key = d3.select(d.target.parentNode).datum().key;
+      mouseover({key, datum});
     })
     // .on("mousemove", mousemove(d))
     // .on("mouseleave", mouseleave)
 
-  
-
+  // Legend
   // https://observablehq.com/@d3/grouped-bar-chart
-  // legend
   let legend = svg => {
+    
     const g = svg
         .attr("transform", `translate(${width},${margin.bottom})`)
         .attr("text-anchor", "end")
@@ -162,7 +141,6 @@ function barChart(data){
     g.append("text")
         .attr("x", -10)
         .attr("y", 8)
-        // .attr("dy", "0.35em")
         .text(d => d);
   }
 
