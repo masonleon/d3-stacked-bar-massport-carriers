@@ -1,8 +1,7 @@
-# Assignment — D3 Basic Charts
+# D3 Stacked Bar Chart: MassPort Carriers
+Visit https://masonleon.github.io/d3-stacked-bar-massport-carriers/ to view the d3.js visualization hosted on GitHub pages.
 
-This repository is your starting point for the assignment and includes the instructions below.
-
-Link to your GitHub pages website: https://neu-cs-7250-s21.github.io/assignment--d3_basic_charts-masonleon/
+This repository is a fork of an assignment submitted for <a href='https://northeastern.instructure.com/courses/63405'>CS 7250 S21 Information Visualization: Theory and Applications</a>, taught by<a href='https://cody.khoury.northeastern.edu/'>Prof. Cody Dunne</a>,<a href='https://visualization.khoury.northeastern.edu/'>Data Visualization @ Khoury</a>,<a href='https://www.khoury.northeastern.edu/'>Northeastern University</a>. 
 
 # Aim of the assignment
 
