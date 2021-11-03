@@ -6,7 +6,7 @@
   <meta charset='utf-8'>
 
   <!-- Title -->
-  <title>Assignment: Basic charts in D3</title>
+  <title>D3 Stacked Bar Chart: MassPort Carriers</title>
 
   <!-- CSS Styling -->
   <link rel='stylesheet' href='style.css'>
@@ -26,42 +26,45 @@
 <body>
 
   <!-- Update this with your GitHub repo URL -->
-  <span id='forkongithub'><a href='https://neu-cs-7250-s21.github.io/assignment--d3_basic_charts-masonleon/'>Fork me on GitHub</a></span>
-
+  <span id='forkongithub'><a href='https://masonleon.github.io/d3-stacked-bar-massport-carriers/'>Fork me on GitHub</a></span>
+  
   <!-- Writeup -->
   <div class='content-column'>
-    <h1>Assignment: Basic charts in D3</h1>
+    <h1>D3 Stacked Bar Chart: MassPort Carriers</h1>
+    <p>
+       This d3.js visualization was created by Mason Leon as an assignment for
+      <a href='https://northeastern.instructure.com/courses/63405'>
+        CS 7250 S21 Information Visualization: Theory and Applications
+      </a>, taught by
+      <a href='https://cody.khoury.northeastern.edu/'>
+        Prof. Cody Dunne
+      </a>,
+      <a href='https://visualization.khoury.northeastern.edu/'>
+        Data Visualization @ Khoury
+      </a>,
+      <a href='https://www.khoury.northeastern.edu/'>
+        Northeastern University
+      </a>. 
+    </p>
 
     <h3>MassPort Container Carriers by Alliance FY 2014 - FY 2020</h3>
     <p>
       As container carriers have consolidated services through mergers, acquisitions, and alliance restructuring, the number of carrier customers hailing the Massachusets Port Authority have waxed and waned 
-      over the past few years. The connectivity of a port often is derived from the port's distinct carriers and alliance groupings. Although alliances largely offer cost-savings for the carrier, they can provide
-      some benefits to the the shipper. However, with fewer unique carriers and services limited to a select group of alliance pairings, customer choice is limited. This type of information is important to monitor 
-      for economic development purposes such as marketing the services available to the region for prospective shippers or for supply chain managers seeking potential alternative routings from the congested NY/NJ
-      gateway.
-      
-      The datasets used in the visualization below was derived from <a href='http://www.massport.com/massport/finance/financial-publications/comprehensive-annual-financial-report-cafr/'>MassPort Annual Financial Reports</a>
-      and combined with other information relating to milestones in major global container carrier alliance formation. The data was shaped into a "wide" format to allow for use of a stacked bar chart. This dataset consists of continuous quarterly information, categorical information representing the alliance, and numerical quanitiative data for the carrier counts per alliance. 
-      I utilized this chart type because it provides a clear view of the total number of unique carriers while also demonstrating the sizes and names of the alliance sub groupings with a color channel and interaction event. The user may
-      inspect a sub element of each quarter to examine the number of carriers participating in that alliance. 
+      over the past few years. 
+      The connectivity of a port often is derived from the distinct service pairings to other ports provided by ocean carrier and alliance group.
+      Although alliances largely offer cost-savings for the carrier, they can provide some benefits to the the shipper. 
+      However, with fewer unique carriers and services limited to a select group of alliance pairings, customer choice is limited. 
+      This type of information is important to monitor for economic development purposes such as marketing the services available to the region for potential shippers or for supply chain managers seeking alternative routings from the congested NY/NJ gateway.
+      <br>
+      <br>
+      The dataset used in the visualization below was derived from <a href='http://www.massport.com/massport/finance/financial-publications/comprehensive-annual-financial-report-cafr/'>MassPort Annual Financial Reports</a> and combined with other information relating to milestones in major global container carrier alliance formation. 
+      The data was shaped into a "wide" format to allow for use of a stacked bar chart. 
+      This dataset consists of continuous quarterly information, categorical information representing the alliance, and numerical quanitiative data for the carrier counts per alliance. 
+      I utilized this chart type because it provides a clear view of the total number of unique carriers while also demonstrating the sizes and names of the alliance sub groupings with a color channel and interaction event. 
+      The user may inspect a sub element of each quarter to examine the number of carriers participating in that alliance. 
     </p>
     <!-- Visualization goes here -->
     <div class='vis-holder' id='vis1'></div>
-
-    <h3>2020 Global Container Carrier Schedule Reliability</h3>
-	  <p>
-      The global maritime supply chain and stakeholders like beficial cargo owners, marine terminal operators, 3PL's, drayage and moter carriers, railroads, and intermodal equipment providers all require 
-      reliable service from their ocean container partners. Reliable service entails regularly scheduled arrival, departure, berthing, loading, and unloading of the vessels deployed in a service by an individual 
-      ocean carrier and alliance partners. A variety of factors and disruptions can decrease this performance metric. During the past year, according to Sea-Intelligence data collected since 2011, global carrier 
-      reliability across 34 trade lanes, 60+ carriers, and the alliances, has hit a record new low of 44.6%. This is significant in that global schedule reliability has hit double digit year over year declines for 
-      the fith consecutive month. 
-
-      The dataset used in the visualization below may be found <a href='https://sea-intelligence.com/images/press_docs/20210129_-_Sea-Intelligence_GLP_Press_Release_Charts_-_January_2021.xlsx'>here</a>. The data 
-      was reshaped into a csv. The data was plotted using a line because the this medium is an effective way to represent quantative values representing the decimal ratio from 0 to 1 for overall carrier performance one a 
-      continuous montly frequency. 
-    </p>
-    <!-- Visualization goes here -->
-    <div class='vis-holder' id='vis2'></div>
 
     <h2>Data Sources</h2>
     <ul>
@@ -104,10 +107,6 @@
       <li><a href='https://www.intermodalexpo.com/sites/default/files/documents/2018-10/IU_OceanAlliances-AnIntroduction_EXPO2018.pdf'>
         Alliance Evolution, 1996 - 2017</a>
         Intermodal Association of North America, IANA Intermodal Expo 2018 Intermodal University, Ocean Alliances - An Introduction, slide 9
-      </li>
-      <li><a href='https://sea-intelligence.com/press-room/45-december-schedule-reliability-hits-new-all-time-low/'>
-        Sea-Intelligence, December 2020 Global Liner Performance Press Release</a>
-        Record-low Global Schedule Reliability of 44.6% in December 2020
       </li>
     </ul>
 
